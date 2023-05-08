@@ -1,70 +1,201 @@
-# Getting Started with Create React App
+# 💅 Styled Components
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 🥓 기본 사용법
+```jsx
+...
+  <Baz bgColor='aliceblue' />
+...
 
-## Available Scripts
 
-In the project directory, you can run:
+const Foo = styled.HTML태그`
+  스타일1
+`
 
-### `yarn start`
+// :luc_expand: 컴포넌트 확장 / 적용
+const Bar = styled(Bar)`
+  (스타일1) // 이미적용되어있는 스타일
+  스타일2
+`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+cosnt Baz = styled.div`
+  background-color: ${(props) => props.bgColor} // 스타일 상속 가넝
+`
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```jsx
+import styled from 'styled-components';
 
-### `yarn test`
+function App() {
+  return (
+    <Wrapper>
+      <Box bgColor='teal' />
+      <Circle bgColor='crimson' />
+    </Wrapper>
+  );
+}
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+// 스타일 컴포넌트
+const Wrapper = styled.div`
+  display: flex;
+`;
 
-### `yarn build`
+const Box = styled.div`
+  background-color: ${(props) => props.bgColor};
+  width: 100px;
+  height: 100px;
+`;
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+const Circle = styled(Box)`
+  border-radius: 50px;
+`;
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+export default App;
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
 
-### `yarn eject`
+### 🎩 'As' and Attrs
+- [?] 컴포넌트의 **태그를 바꾸고**싶은데, **스타일은** 바꾸고 싶지 않을때?
+👉 `<기존컴포넌트 as='HTML태그' />`
+```
+```jsx
+import styled from 'styled-components';
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+function App() {
+  return (
+    <Wrapper>
+      <Btn>로그인</Btn>
+      {/* 스타일은 Btn이지만 태그는 a태그 */}
+      <Btn as='a' href='/'>로그인</Btn>
+    </Wrapper>
+  );
+}
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+// 스타일 컴포넌트
+const Wrapper = styled.div`
+  display: flex;
+`;
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+const Btn = styled.*button*`
+  color: white;
+  background-color: cadetblue;
+  border-radius: 15px;
+`;
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+export default App;
 
-## Learn More
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 🚛 컴포넌트내에서 HTML태그 속성을 설정하기!
+```ad-tip
+const Foo = styled.HtmlTag.attrs({ 속성:속성값 }) `
+  style....
+`
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```jsx
+import styled from 'styled-components';
 
-### Code Splitting
+function App() {
+  return (
+    <Wrapper as='header'>
+      {/* input이 전부 required 하게 하고싶을땐? */}
+      <Input />
+      <Input />
+      <Input />
+      <Input />
+      <Input />
+    </Wrapper>
+  );
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+// 스타일 컴포넌트
+const Wrapper = styled.div`
+  display: flex;
+`;
 
-### Analyzing the Bundle Size
+const Input = styled.input.attrs({ required: true, minLength:10 })`
+  background-color: cadetblue;
+`;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+export default App;
 
-### Making a Progressive Web App
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🎥 Animations
 
-### Advanced Configuration
+1. `import ..., {keyframes} from 'styled-components'`
+2. ... keyframes로 선언
+```jsx
+import styled, **{ keyframes }** from 'styled-components';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+function App() {
+  return (
+    <Wrapper>
+      <Box />
+    </Wrapper>
+  );
+}
 
-### Deployment
+// 스타일 컴포넌트
+const Wrapper = styled.div`
+  display: flex;
+`;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+const animation = **keyframes**`
+  0% {
+    transform: rotate(0deg);
+    border-radius: 0px;
+  } 50% {
+    transform: rotate(360deg);
+    border-radius: 100px;
+  } 100% {
+    transform: rotate(0deg);
+    border-radius: 0px;
+  }
+`;
 
-### `yarn build` fails to minify
+const Box = styled.div`
+  width: 200px;
+  height: 200px;
+  background-color: cadetblue;
+  animation: **${animation}** 1s linear infinite;
+`;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+export default App;
+```
+
+### 🕵️‍♀️ Selector
+```jsx
+import styled, { keyframes } from 'styled-components';
+
+function App() {
+  return (
+    <Wrapper>
+      <Box>
+        <span>😀</span>
+      </Box>
+    </Wrapper>
+  );
+}
+
+// 스타일 컴포넌트
+...
+
+const Box = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  background-color: cadetblue;
+  animation: ${animation} 1s linear infinite;
+
+  span {
+    font-size: 100px;
+  }
+`;
+
+export default App;
+
+```
+
