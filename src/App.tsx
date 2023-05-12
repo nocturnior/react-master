@@ -1,9 +1,11 @@
 import styled from 'styled-components';
+import Circle from './Circle';
 
 function App() {
   return (
     <Wrapper>
-      <Title>하이용</Title>
+      <Circle borderColor='yellow' bgColor='teal' />
+      <Circle bgColor='tomato' />
     </Wrapper>
   );
 }
@@ -16,10 +18,6 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${(props) => props.theme.backgroundColor};
-`;
-
-const Title = styled.h1`
-  color: ${(props) => props.theme.textColor};
 `;
 
 export default App;
