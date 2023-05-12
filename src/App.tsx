@@ -1,11 +1,27 @@
 import styled from 'styled-components';
-import Circle from './Circle';
+import React, { useState } from 'react';
 
 function App() {
+  const [value, setValue] = useState('');
+  // event에 타입 추가하기
+  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { value }, // string이어야만 한다
+    } = e;
+    setValue(value);
+  };
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log('hello', value);
+  };
+
   return (
     <Wrapper>
-      <Circle borderColor='yellow' bgColor='teal' />
-      <Circle bgColor='tomato' />
+      <form onSubmit={onSubmit}>
+        <input value={value} onChange={onChange} type='text' placeholder='username' />
+        <button>로그인</button>
+      </form>
     </Wrapper>
   );
 }
