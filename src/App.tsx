@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import React, { useState } from 'react';
 
 // components
-import Circle from './Circle';
+import Header from './components/Header';
+import Router from './Router';
 
 function App() {
   const [value, setValue] = useState('');
@@ -21,18 +22,19 @@ function App() {
 
   return (
     <Wrapper>
+      <Router />
       <form onSubmit={onSubmit}>
         <input value={value} onChange={onChange} type='text' placeholder='username' />
         <button>로그인</button>
       </form>
     </Wrapper>
-
   );
 }
 
 // 스타일 컴포넌트
 const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
   justify-content: center;
