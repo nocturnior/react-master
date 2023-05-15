@@ -5,6 +5,7 @@ import About from './screens/About';
 import Root from './Root';
 import NotFound from './screens/NotFound';
 import ErrComponent from './components/ErrorComponent';
+import User from './screens/users/User';
 
 // array 형식으로
 const router = createBrowserRouter([
@@ -22,6 +23,11 @@ const router = createBrowserRouter([
         path: 'about',
         element: <About />,
       },
+      {
+        path: 'users/:userId',
+        element: <User />,
+      },
+      
     ],
     errorElement: <NotFound />,
   },
