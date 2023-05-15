@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
 
+// components
+import Circle from './Circle';
+
 function App() {
   const [value, setValue] = useState('');
   // event에 타입 추가하기
@@ -23,6 +26,7 @@ function App() {
         <button>로그인</button>
       </form>
     </Wrapper>
+
   );
 }
 
