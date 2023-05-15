@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 function Header() {
   return (
     <header>
-      <ul>
+      <ul style={{ display: 'flex', justifyContent: 'space-between', paddingInlineStart:'0', listStyle:'none'}}>
         <li>
           <Link to='/'>Home</Link>
         </li>
@@ -15,4 +15,4 @@ function Header() {
   );
 }
 
-export default Header
+export default Header;
