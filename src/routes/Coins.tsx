@@ -29,7 +29,7 @@ export default function Coins() {
   return (
     <Contianer>
       <Header>
-        <Title>🤠 코인들ㅋ</Title>
+        <Title>🤠코인들🤠</Title>
       </Header>
       {loading ? (
         <Loader>로딩중❗</Loader>
@@ -37,7 +37,7 @@ export default function Coins() {
         <CoinsList>
           {coins.map((coin) => (
             <Coin key={coin.id}>
-              <Link to={`/${coin.id}`}>
+              <Link to={{ pathname: `/${coin.id}` }} state={{ name: coin.name }}>
                 <CoinImg src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`} />
                 {coin.name} &rarr;
               </Link>
