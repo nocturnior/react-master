@@ -1,7 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { users } from '../db';
 
 function Home() {
+  const [readSearchParams, setSearchParams] = useSearchParams();
+  console.log('🚀 ⁝ Home ⁝ readSearchParams:', readSearchParams.has('geo'));
+  // URLSearchParams : JS메소드~ useSearchParams를 사용하려면 JS메소드인 URL웅애웅이랑 같이써야한다
+
   return (
     <>
       <h1>Users</h1>
