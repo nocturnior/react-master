@@ -4,13 +4,12 @@ import React, { useState } from 'react';
 
 // components
 import Header from './components/Header';
-import Router from './Router';
+import Router from './routes/Router';
 
-function Root() {
+function App() {
   return (
     <Wrapper>
-      <Header />
-      <Outlet />
+      <Router />
     </Wrapper>
   );
 }
@@ -26,4 +25,4 @@ const Wrapper = styled.div`
   background-color: ${(props) => props.theme.backgroundColor};
 `;
 
-export default Root;
+export default App;

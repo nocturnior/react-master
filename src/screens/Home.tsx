@@ -1,3 +1,5 @@
+// / => All coins
+// :id => /btc -> Coin Detail
 import { Link, useSearchParams } from 'react-router-dom';
 import { users } from '../db';
 
