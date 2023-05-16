@@ -20,7 +20,7 @@ export default function Coins() {
     (async () => {
       const res = await fetch('https://api.coinpaprika.com/v1/coins');
       const json = await res.json();
-      setCoins(json.slice(0, 100));
+      setCoins(json.slice(0, 130));
       setLoading(false);
     })();
   }, []);
@@ -30,20 +30,22 @@ export default function Coins() {
       <Header>
         <Title>🤠코인들🤠</Title>
       </Header>
-      {loading ? (
-        <Loader>로딩중❗</Loader>
-      ) : (
-        <CoinsList>
-          {coins.map((coin) => (
-            <Coin key={coin.id}>
-              <Link to={{ pathname: `/${coin.id}` }} state={{ name: coin.name }}>
-                <CoinImg src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`} />
-                {coin.name} &rarr;
-              </Link>
-            </Coin>
-          ))}
-        </CoinsList>
-      )}
+      <CoinWrapper>
+        {loading ? (
+          <Loader>로딩중❗</Loader>
+        ) : (
+          <CoinsList>
+            {coins.map((coin) => (
+              <Coin key={coin.id}>
+                <Link to={{ pathname: `/${coin.id}` }} state={{ name: coin.name }}>
+                  <CoinImg src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`} />
+                  {coin.name} &rarr;
+                </Link>
+              </Coin>
+            ))}
+          </CoinsList>
+        )}
+      </CoinWrapper>
     </Contianer>
   );
 }
@@ -65,14 +67,17 @@ const Header = styled.header`
   background: ${(props) => props.theme.bgColor} 0.7;
   backdrop-filter: blur(3px);
 `;
+const CoinWrapper = styled.div`
+  margin-top: 10px;
+`;
 const CoinsList = styled.ul`
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
   flex-wrap: wrap;
-  gap: 12px;
   height: auto;
+  gap: 12px;
 `;
 const Coin = styled.h1`
   min-width: 140px;

@@ -175,6 +175,7 @@ const OverviewItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 90px;
 
   span:first-child {
     font-size: 10px;
