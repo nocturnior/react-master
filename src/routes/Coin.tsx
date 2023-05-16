@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { Outlet, Route, Routes, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+
+// components
+import { Price } from './Price';
+import { Chart } from './Chart';
 
 interface RouteState {
   state: {
@@ -88,15 +92,45 @@ export default function Coin() {
       setPriceInfo(priceData);
       setLoading(false);
     })();
-  }, [coinId]); // coinId가 변한다면 그떄 실행
+  }, [coinId]); // coinId가 변한다면 그떄 실행, 근데 안변함ㅋ
 
   return (
     <Container>
       <Header>
-        {/* state가 존재하면 name을 가져오고 아니면 로딩중~ 👉 코인으로 바로 들어가면 안보여짐 */}
-        <Title>{state?.name || '로딩중❗'}</Title>
+        <Title>{state?.name ? state.name : loading ? 'Loading...' : info?.name}</Title>
       </Header>
-      {loading ? <Loader>로딩중❗</Loader> : <span>priceInfo?.quotes.USD</span>}
+      {loading ? (
+        <Loader>Loading...</Loader>
+      ) : (
+        <>
+          <Overview>
+            <OverviewItem>
+              <span>Rank:</span>
+              <span>{info?.rank}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Symbol:</span>
+              <span>${info?.symbol}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Open Source:</span>
+              <span>{info?.open_source ? 'Yes' : 'No'}</span>
+            </OverviewItem>
+          </Overview>
+          <Description>{info?.description}</Description>
+          <Overview>
+            <OverviewItem>
+              <span>Total Suply:</span>
+              <span>{priceInfo?.total_supply}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Max Supply:</span>
+              <span>{priceInfo?.max_supply}</span>
+            </OverviewItem>
+          </Overview>
+          <Outlet />
+        </>
+      )}
     </Container>
   );
 }
@@ -104,6 +138,7 @@ export default function Coin() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  width: 900px;
   height: auto;
   padding: 0px 20px;
   margin: 0 auto;
@@ -126,4 +161,29 @@ const Title = styled.h1`
 const Loader = styled.div`
   text-align: center;
   font-size: 30px;
+`;
+
+const Overview = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 10px;
+`;
+
+const OverviewItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  span:first-child {
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+`;
+
+const Description = styled.p`
+  margin: 20px 0px;
 `;

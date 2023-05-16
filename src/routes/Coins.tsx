@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { coinsDB } from '../coinsDB';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
