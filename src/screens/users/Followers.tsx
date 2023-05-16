@@ -1,3 +1,11 @@
+import { useOutletContext } from 'react-router-dom';
+
+interface IFollowersContext {
+  nameOfMyUser: string;
+}
+
 export default function Followers() {
-  return <h1>Followers</h1>;
+  const { nameOfMyUser } = useOutletContext<IFollowersContext>();
+
+  return <h1>여긴~ {nameOfMyUser}의 followers</h1>;
 }

@@ -15,7 +15,9 @@ export default function User() {
       <hr />
       {/* '/'를 쓰면 절대경로가 된다 → '/'를 빼고 쓰면 현재 있는 URL다음에 경로를 추가 */}
       <Link to='followers'>팔로워</Link>
-      <Outlet />
+
+      {/* context : 이것들을 자식한테 보내주세요 */}
+      <Outlet context={{ nameOfMyUser: users[Number(userId) - 1].name, }} />
     </>
   );
 }
