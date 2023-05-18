@@ -77,18 +77,18 @@ interface IPriceData {
 }
 
 export default function Coin() {
-  const [loading, setLoading] = useState(true);
   const { coinId } = useParams();
   const { state } = useLocation() as RouteState;
 
+  const [loading, setLoading] = useState(true);
   const [info, setInfo] = useState<IInfoData>();
   const [priceInfo, setPriceInfo] = useState<IPriceData>();
+
   const priceMatch = useMatch('/:coinId/price');
   const chartMatch = useMatch('/:coinId/chart');
-  console.log('🚀 ⁝ Coin ⁝ priceMatch:', priceMatch);
-  console.log('🚀 ⁝ Coin ⁝ chartMatch:', chartMatch);
 
-  useEffect(() => {
+  /** Fetcher Function
+   * useEffect(() => {
     (async () => {
       const infoData = await (await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)).json();
       const priceData = await (await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)).json();
@@ -96,7 +96,7 @@ export default function Coin() {
       setPriceInfo(priceData);
       setLoading(false);
     })();
-  }, [coinId]); // coinId가 변한다면 그떄 실행, 근데 안변함ㅋ
+  }, [coinId]); // coinId가 변한다면 그떄 실행, 근데 안변함ㅋ */
 
   return (
     <Container>
