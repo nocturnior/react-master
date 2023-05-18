@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Outlet, Route, Routes, useLocation, useParams } from 'react-router-dom';
+import { Link, Outlet, Route, Routes, useLocation, useMatch, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 // components
@@ -83,6 +83,10 @@ export default function Coin() {
 
   const [info, setInfo] = useState<IInfoData>();
   const [priceInfo, setPriceInfo] = useState<IPriceData>();
+  const priceMatch = useMatch('/:coinId/price');
+  const chartMatch = useMatch('/:coinId/chart');
+  console.log('🚀 ⁝ Coin ⁝ priceMatch:', priceMatch);
+  console.log('🚀 ⁝ Coin ⁝ chartMatch:', chartMatch);
 
   useEffect(() => {
     (async () => {
@@ -128,6 +132,14 @@ export default function Coin() {
               <span>{priceInfo?.max_supply}</span>
             </OverviewItem>
           </Overview>
+          <Tabs>
+            <Tab isActive={chartMatch !== null}>
+              <Link to='chart'>Chart</Link>
+            </Tab>
+            <Tab isActive={priceMatch !== null}>
+              <Link to='price'>Price</Link>
+            </Tab>
+          </Tabs>
           <Outlet />
         </>
       )}
@@ -187,4 +199,35 @@ const OverviewItem = styled.div`
 
 const Description = styled.p`
   margin: 20px 0px;
+  line-height: 1.6;
+  color: #7c8695;
+  font-weight: 200;
+`;
+
+const Tabs = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 25px 0;
+  gap: 10px;
+`;
+
+const Tab = styled.span<{ isActive: boolean }>`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 10px 0;
+  border-radius: 10px;
+  transition: background-color 0.2s ease-in-out;
+  color: ${(props) => (props.isActive ? props.theme.accentColor : props.theme.textColor)};
+
+  a {
+    display: block;
+  }
+
+  &:hover {
+    background-color: ${(props) => props.theme.textColor};
+    color: ${(props) => props.theme.accentColor};
+  }
 `;

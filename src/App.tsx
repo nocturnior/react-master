@@ -60,6 +60,10 @@ footer, header, hgroup, main, menu, nav, section {
 *{
   box-sizing: border-box;
 }
+*::selection {
+  background-color: ${(props) => props.theme.accentColor};
+  color:#fff
+}
 body {
   line-height: 1;
   font-family: 'Pretendard', sans-serif;
