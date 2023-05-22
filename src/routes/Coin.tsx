@@ -80,6 +80,7 @@ interface IPriceData {
 
 export default function Coin() {
   const { coinId } = useParams();
+  console.log('🚀 ⁝ Coin ⁝ coinId:', coinId);
   const { state } = useLocation() as RouteState;
 
   const priceMatch = useMatch('/:coinId/price');
@@ -103,11 +104,13 @@ export default function Coin() {
   */
   // 모든 쿼리는 각각 고유한 ID를 갖고 있어야한다! 👉 ReactQuery는 array도 쿼리가된다!!
   // useQuery('coinId') => useQuery(['info',coinId],...)
+  // !=> 확장 할당 어션셜로 값이 무조건 할당되어있다고 컴파일러에게 전달해 값이 없어도 변수를 사용할 수 있게
   const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(['info', coinId], () =>
-    fetchCoinInfo('coinId')
+    fetchCoinInfo(coinId!)
   );
+
   const { isLoading: tickersLoading, data: tickersData } = useQuery<IPriceData>(['tickers', coinId], () =>
-    fetchCoinTickers('coinId')
+    fetchCoinTickers(coinId!)
   );
 
   const loading = infoLoading || tickersLoading;
