@@ -80,7 +80,6 @@ interface IPriceData {
 
 export default function Coin() {
   const { coinId } = useParams();
-  console.log('🚀 ⁝ Coin ⁝ coinId:', coinId);
   const { state } = useLocation() as RouteState;
 
   const priceMatch = useMatch('/:coinId/price');
@@ -151,13 +150,18 @@ export default function Coin() {
           </Overview>
           <Tabs>
             <Tab isActive={chartMatch !== null}>
-              <Link to='chart'>Chart</Link>
+              <Link to='chart' state={{ coinId }}>
+                Chart
+              </Link>
             </Tab>
             <Tab isActive={priceMatch !== null}>
-              <Link to='price'>Price</Link>
+              <Link to='price' state={{ coinId }}>
+                Price
+              </Link>
             </Tab>
           </Tabs>
-          <Outlet />
+          {/* 상위 컴포넌트에서 Outlet컴포넌트에 context에 prop를 전달 */}
+          <Outlet context={{ coinId: coinId }} />
         </>
       )}
     </Container>
