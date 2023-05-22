@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchCoins } from './../api';
 import { useQuery } from 'react-query';
+import { Helmet } from 'react-helmet';
 
 interface ICoin {
   id: string;
@@ -33,6 +34,9 @@ export default function Coins() {
 
   return (
     <Contianer>
+      <Helmet>
+        <title>🤠코인들🤠</title>
+      </Helmet>
       <Header>
         <Title>🤠코인들🤠</Title>
       </Header>
@@ -44,7 +48,9 @@ export default function Coins() {
             {data?.slice(0, 130).map((coin) => (
               <Coin key={coin.id}>
                 <Link to={{ pathname: `/${coin.id}` }} state={{ name: coin.name }}>
-                  <CoinImg src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`} />
+                  <CoinImg
+                    src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
+                  />
                   {coin.name} &rarr;
                 </Link>
               </Coin>

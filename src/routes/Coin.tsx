@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, Outlet, Route, Routes, useLocation, useMatch, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { Helmet } from 'react-helmet';
 
 // components
 import { Price } from './Price';
@@ -108,14 +109,22 @@ export default function Coin() {
     fetchCoinInfo(coinId!)
   );
 
-  const { isLoading: tickersLoading, data: tickersData } = useQuery<IPriceData>(['tickers', coinId], () =>
-    fetchCoinTickers(coinId!)
+  const { isLoading: tickersLoading, data: tickersData } = useQuery<IPriceData>(
+    ['tickers', coinId],
+    () => fetchCoinTickers(coinId!),
+    // 5초마다 새로 고침
+    {
+      refetchInterval: 10000,
+    }
   );
 
   const loading = infoLoading || tickersLoading;
 
   return (
     <Container>
+      <Helmet>
+        <title>{state?.name ? state.name : loading ? 'Loading...' : infoData?.name}</title>
+      </Helmet>
       <Header>
         <Title>{state?.name ? state.name : loading ? 'Loading...' : infoData?.name}</Title>
       </Header>
@@ -130,11 +139,11 @@ export default function Coin() {
             </OverviewItem>
             <OverviewItem>
               <span>Symbol:</span>
-              <span>${infoData?.symbol}</span>
+              <span>{infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Open Source:</span>
-              <span>{infoData?.open_source ? 'Yes' : 'No'}</span>
+              <span>Price:</span>
+              <span>${tickersData?.quotes.USD.price}</span>
             </OverviewItem>
           </Overview>
           <Description>{infoData?.description}</Description>
