@@ -9,8 +9,19 @@
       setPriceInfo(priceData);
       setLoading(false);
     })();
-  }, [coinId]); // coinId가 변한다면 그떄 실행, 근데 안변함ㅋ */
+  }, [coinId]); // coinId가 변한다면 그떄 실행, 근데 안변함ㅋ
+  */
+
+const BASE_URL = `https://api.coinpaprika.com/v1`;
 
 export function fetchCoins() {
-  return fetch('https://api.coinpaprika.com/v1/coins').then((res) => res.json());
+  return fetch(`${BASE_URL}/coins`).then((res) => res.json());
+}
+
+export function fetchCoinInfo(coinId: string) {
+  return fetch(`${BASE_URL}/coins/${coinId}`).then((res) => res.json());
+}
+
+export function fetchCoinTickers(coinId: string) {
+  return fetch(`${BASE_URL}/tickers/${coinId}`).then((res) => res.json());
 }

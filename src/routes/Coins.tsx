@@ -28,7 +28,9 @@ export default function Coins() {
     })();
   }, []); */
 
+  // reactQuery가 data를 caching하고 잇어서 화면을 바꿧다가 돌아와도 새로고침 안해두댐 ㅋ
   const { isLoading, data } = useQuery<ICoin[]>('allCoins', fetchCoins);
+
   return (
     <Contianer>
       <Header>
