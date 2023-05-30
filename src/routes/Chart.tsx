@@ -2,7 +2,10 @@ import { useQuery } from 'react-query';
 import { useOutletContext } from 'react-router-dom';
 import { fetchCoinHistory } from '../api';
 import ApexChart from 'react-apexcharts';
+import { useRecoilValue } from 'recoil';
+import { isDarkAtom } from '../atoms';
 
+// Interface
 interface ChartProps {
   coinId: string;
 }
@@ -18,12 +21,10 @@ interface IHistorical {
   market_cap: number;
 }
 
-interface ToggleDarkType {
-  toggleDark: () => void;
-  isDark: boolean;
-}
+export const Chart = () => {
+  // isDark 받아오기
+  const isDark = useRecoilValue(isDarkAtom);
 
-export const Chart = ({ isDark }: ToggleDarkType) => {
   // useOutletContext를 이용하여 프롭스 받아오기
   const { coinId } = useOutletContext<ChartProps>();
   const { isLoading, data } = useQuery<IHistorical[]>(['ohlcv', coinId], () =>

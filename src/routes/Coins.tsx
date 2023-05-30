@@ -15,12 +15,7 @@ interface ICoin {
   type: string;
 }
 
-interface ToggleDarkType {
-  toggleDark: () => void;
-  isDark: boolean;
-}
-
-export default function Coins({ toggleDark }: ToggleDarkType) {
+export default function Coins() {
   /*
   const [coins, setCoins] = useState<ICoin[]>([]);
   const [loading, setLoading] = useState(true);
@@ -44,7 +39,7 @@ export default function Coins({ toggleDark }: ToggleDarkType) {
       </Helmet>
       <Header>
         <Title>🤠코인들🤠</Title>
-        <button onClick={toggleDark}>Toggle Mode</button>
+        <button>Toggle Mode</button>
       </Header>
       <CoinWrapper>
         {isLoading ? (

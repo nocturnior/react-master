@@ -88,12 +88,9 @@ interface IPriceData {
   };
 }
 
-interface ToggleDarkType {
-  toggleDark: () => void;
-  isDark: boolean;
-}
 
-export default function Coin({ toggleDark, isDark }: ToggleDarkType) {
+
+export default function Coin() {
   const { coinId } = useParams();
   const { state } = useLocation() as RouteState;
 

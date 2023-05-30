@@ -3,6 +3,6 @@ interface ToggleDarkType {
   isDark: boolean;
 }
 
-export const Price = ({ toggleDark, isDark }: ToggleDarkType) => {
+export const Price = () => {
   return <>가격</>;
 };
