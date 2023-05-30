@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { fetchCoins } from './../api';
 import { useQuery } from 'react-query';
 import { Helmet } from 'react-helmet';
+import { useSetRecoilState } from 'recoil';
+import { isDarkAtom } from '../atoms';
 
 interface ICoin {
   id: string;
@@ -28,6 +30,9 @@ export default function Coins() {
       setLoading(false);
     })();
   }, []); */
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
+  // Recoil atom의 value 수정
+  const toggleDark = () => setDarkAtom((prev) => !prev);
 
   // reactQuery가 data를 caching하고 잇어서 화면을 바꿧다가 돌아와도 새로고침 안해두댐 ㅋ
   const { isLoading, data } = useQuery<ICoin[]>('allCoins', fetchCoins);
@@ -39,7 +44,7 @@ export default function Coins() {
       </Helmet>
       <Header>
         <Title>🤠코인들🤠</Title>
-        <button>Toggle Mode</button>
+        <button onClick={toggleDark}>Toggle Mode</button>
       </Header>
       <CoinWrapper>
         {isLoading ? (
