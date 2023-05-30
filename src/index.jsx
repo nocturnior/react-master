@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
 import App from './App';
+import { RecoilRoot } from 'recoil';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -10,15 +11,12 @@ const darkTheme = {
   backgroundColor: 'hsl(218, 23%, 21%)',
 };
 
-const lightTheme = {
-  textColor: 'hsl(218, 23%, 21%)',
-  backgroundColor: 'whiteSmoke',
-};
-
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={darkTheme}>
-      <App />
-    </ThemeProvider>
+    <RecoilRoot>
+      <ThemeProvider theme={darkTheme}>
+        <App />
+      </ThemeProvider>
+    </RecoilRoot>
   </React.StrictMode>
 );
