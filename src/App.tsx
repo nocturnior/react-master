@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
+import TodoList from './TodoList';
+import { darkTheme } from './theme';
 
 function App() {
   return (
     <>
       <GlobalStyle />
+      <Wrapper>
+        <TodoList />
+      </Wrapper>
     </>
   );
 }
