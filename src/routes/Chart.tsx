@@ -18,7 +18,12 @@ interface IHistorical {
   market_cap: number;
 }
 
-export const Chart = () => {
+interface ToggleDarkType {
+  toggleDark: () => void;
+  isDark: boolean;
+}
+
+export const Chart = ({ isDark }: ToggleDarkType) => {
   // useOutletContext를 이용하여 프롭스 받아오기
   const { coinId } = useOutletContext<ChartProps>();
   const { isLoading, data } = useQuery<IHistorical[]>(['ohlcv', coinId], () =>

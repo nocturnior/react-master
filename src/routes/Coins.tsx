@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchCoins } from './../api';
 import { useQuery } from 'react-query';
@@ -15,7 +15,12 @@ interface ICoin {
   type: string;
 }
 
-export default function Coins() {
+interface ToggleDarkType {
+  toggleDark: () => void;
+  isDark: boolean;
+}
+
+export default function Coins({ toggleDark }: ToggleDarkType) {
   /*
   const [coins, setCoins] = useState<ICoin[]>([]);
   const [loading, setLoading] = useState(true);
@@ -39,6 +44,7 @@ export default function Coins() {
       </Helmet>
       <Header>
         <Title>🤠코인들🤠</Title>
+        <button onClick={toggleDark}>Toggle Mode</button>
       </Header>
       <CoinWrapper>
         {isLoading ? (
@@ -90,13 +96,15 @@ const CoinsList = styled.ul`
   flex-wrap: wrap;
   height: auto;
   gap: 12px;
+  color: #45505c;
 `;
 const Coin = styled.h1`
   min-width: 140px;
   /* margin-bottom: 10px; */
-  background-color: white;
-  color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.linkColor};
+  color: ${(props) => props.theme.textColor};
   border-radius: 15px;
+  box-shadow: 0.5px 0.7px 0.8px rgba(0, 0, 0, 0.05), 4px 5px 6px rgba(0, 0, 0, 0.1);
 
   a {
     display: flex;

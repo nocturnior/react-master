@@ -1,5 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Link, Outlet, Route, Routes, useLocation, useMatch, useParams } from 'react-router-dom';
+import {
+  Link,
+  Outlet,
+  Route,
+  Routes,
+  useLocation,
+  useMatch,
+  useOutletContext,
+  useParams,
+} from 'react-router-dom';
 import styled from 'styled-components';
 import { Helmet } from 'react-helmet';
 
@@ -79,7 +88,12 @@ interface IPriceData {
   };
 }
 
-export default function Coin() {
+interface ToggleDarkType {
+  toggleDark: () => void;
+  isDark: boolean;
+}
+
+export default function Coin({ toggleDark, isDark }: ToggleDarkType) {
   const { coinId } = useParams();
   const { state } = useLocation() as RouteState;
 
