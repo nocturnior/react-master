@@ -34,18 +34,31 @@ export default function TodoList() {
 } */
 
 export default function TodoList() {
-  const { register, watch } = useForm();
-  console.log('🚀 ⁝ TodoList ⁝ watch:', watch());
+  const { register, watch, handleSubmit, formState } = useForm();
+
+  const onValid = (data: any) => {
+    console.log(data);
+  };
+  console.log(formState.errors);
 
   return (
     <>
-      <form style={{display:'flex', flexDirection:'column'}}>
-        <input {...register('email')} placeholder='이메일' />
-        <input {...register('firstName')} placeholder='성' />
-        <input {...register('lastName')} placeholder='이름' />
-        <input {...register('userName')} placeholder='닉네임' />
-        <input {...register('password')} placeholder='비밀번호' />
-        <input {...register('passwordConfirm')} placeholder='비밀번호 확인' />
+      <form onSubmit={handleSubmit(onValid)} style={{ display: 'flex', flexDirection: 'column' }}>
+        <input {...register('email', { required: true })} placeholder='이메일' />
+        <input {...register('firstName', { required: true })} placeholder='성' />
+        <input {...register('lastName', { required: true })} placeholder='이름' />
+        <input {...register('userName', { required: true, minLength: 3 })} placeholder='닉네임' />
+        <input
+          {...register('password', {
+            required: 'password is required',
+            minLength: { value: 5, message: '비밀번호가넘짧다' },
+          })}
+          placeholder='비밀번호'
+        />
+        <input
+          {...register('passwordConfirm', { required: true, minLength: 5 })}
+          placeholder='비밀번호 확인'
+        />
         <button>추가</button>
       </form>
     </>
