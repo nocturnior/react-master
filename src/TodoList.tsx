@@ -33,6 +33,27 @@ export default function TodoList() {
   );
 } */
 
+/** useForm 사용해서 간단하게 다시 만들어보기
+ const { register, handleSubmit, setValue } = useForm<IForm>();
+
+  const onSubmit = (data: IForm) => {
+    console.log('할일은...', data.todo);
+    setValue('todo', '');
+  };
+
+  return (
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          {...register('todo', { required: '머할건지 써주셔요' })}
+          type='text'
+          placeholder='머할건지'
+        />
+        <button>추가</button>
+      </form>
+    </>
+  ); */
+
 type IFormData = {
   errors: {
     email: {
