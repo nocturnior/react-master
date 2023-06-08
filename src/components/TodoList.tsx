@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import CreateTodo from './CreateTodo';
+import { todoState } from '../atom';
+import Todo from './Todo';
 
 /** useForm 사용하기 이전 코드
 export default function TodoList() {
@@ -36,51 +39,20 @@ export default function TodoList() {
 
 // useForm 사용해서 간단하게 다시 만들어보기
 
-interface IForm {
-  todo: string;
-}
-
-interface ITodo {
-  text: string;
-  id: number;
-  category: 'YET' | 'DOING' | 'DONE';
-}
-
-const todoState = atom<ITodo[]>({
-  key: 'todo',
-
-  default: [],
-});
-
 export default function TodoList() {
   // const value = useRecoilValue(todoState); => 배열받음
   // const modFn = useSetRecoilState(todoState); => 배열을 수정
-  const [todos, setTodos] = useRecoilState(todoState); // 위에 두개를 합친것과 같음
-
-  const { register, handleSubmit, setValue } = useForm<IForm>();
-
-  const onSubmit = ({ todo }: IForm) => {
-    setTodos((pre) => [{ text: todo, id: Date.now(), category: 'YET' }, ...pre]);
-    setValue('todo', '');
-  };
-
-  console.log(todos);
+  const todos = useRecoilValue(todoState);
 
   return (
     <>
       <h1>투두리스트</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          {...register('todo', { required: '머할건지 써주셔요' })}
-          type='text'
-          placeholder='머할건지'
-        />
-        <button>추가</button>
-      </form>
-
+      <hr />
+      <CreateTodo />
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id}>{todo.text}</li>
+          // <Todo text={todo.text} category={todo.category} id={todo.id} />
+          <Todo key={todo.id} {...todo} />
         ))}
       </ul>
     </>
