@@ -45,6 +45,7 @@ type IFormData = {
   userName: string;
   password: string;
   passwordConfirm: string;
+  extraErr?: string;
 };
 
 export default function TodoList() {
@@ -53,14 +54,22 @@ export default function TodoList() {
     watch,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<IFormData>({
     defaultValues: {
       email: '@naver.com',
     },
   });
 
-  const onValid = (data: any) => {
-    console.log(data);
+  const onValid = (data: IFormData) => {
+    if (data.password !== data.passwordConfirm) {
+      setError(
+        'passwordConfirm',
+        { message: '패스워드가 일치하지 않습니다.' },
+        { shouldFocus: true }
+      );
+    }
+    // setError('extraErr', { message: '서버가 오프라인 상태입니다.' });
   };
 
   return (
@@ -78,7 +87,16 @@ export default function TodoList() {
         />
         <span style={{ fontSize: '12px' }}>{errors?.email?.message}</span>
 
-        <input {...register('firstName', { required: '쓰슈' })} placeholder='성' />
+        <input
+          {...register('firstName', {
+            required: '쓰슈',
+            validate: {
+              noTest: (value) =>
+                value.includes('test') ? 'test는 허용되지 않는 이름입니다' : true,
+            },
+          })}
+          placeholder='성'
+        />
         <span style={{ fontSize: '12px' }}>{errors?.firstName?.message}</span>
 
         <input {...register('lastName', { required: '쓰쇼' })} placeholder='이름' />
@@ -88,6 +106,10 @@ export default function TodoList() {
           {...register('userName', {
             required: '쓰쇼',
             minLength: { value: 3, message: '닉넴이 넘 짧아용 ㅋ' },
+            validate: {
+              noTest: (value) =>
+                value.includes('test') ? 'test는 허용되지 않는 닉네임 입니다' : true,
+            },
           })}
           placeholder='닉네임'
         />
@@ -111,6 +133,7 @@ export default function TodoList() {
         />
         <span style={{ fontSize: '12px' }}>{errors?.passwordConfirm?.message}</span>
         <button>추가</button>
+        <span>{errors?.extraErr?.message}</span>
       </form>
     </>
   );
