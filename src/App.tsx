@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
-import TodoList from './TodoList';
+import TodoList from './components/TodoList';
 import { darkTheme } from './theme';
 
 function App() {
